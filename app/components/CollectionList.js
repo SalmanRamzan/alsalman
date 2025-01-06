@@ -34,8 +34,8 @@ export default function Collections() {
   //const getImageUrl = (photos) => photos[3]?.url || "";
   return (
     <>
-      <h1 className="lg:text-6xl text-3xl text-center my-6 pb-12 mx-auto w-3/5 border-b-4 border-base-300">Our Collections</h1>
-      <div className="w-4/5 mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 p-4">
+      <h1 className="lg:text-6xl text-3xl text-center my-6 pb-12 mx-auto w-3/5 border-b-2 border-primary py-12">Our Collections</h1>
+      <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 p-4 py-24">
         {collections.map((collection) => (
           <CollectionCard key={collection.id} documentId={collection.documentId} imageUrl={collection.img.url} name={collection.name}
             description={collection.descr} />

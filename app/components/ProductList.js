@@ -35,8 +35,8 @@ export default function Products() {
 
   return (
     <>
-      <h1 className="lg:text-6xl text-3xl text-center my-6 pb-12 mx-auto w-3/4 border-b-2 border-base-300">New Arrival</h1>
-      <div className="w-4/5 mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
+      <h1 className="lg:text-6xl text-3xl text-center my-6 pb-12 mx-auto w-3/5 border-b-2 border-primary py-12">New Arrival</h1>
+      <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4 py-24">
         {products.map((product) => (
           <ProductCard key={product.id} documentId={product.documentId} imageUrl={getImageUrl(product.photos)} name={product.name}
             description={product.descr} discountedPrice={product.dprice} originalPrice={product.price} />

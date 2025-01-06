@@ -4,7 +4,7 @@ export default function Footer1({brand}) {
   return (
     <footer className="footer bg-neutral text-neutral-content items-center p-4 lg:px-32">
         <aside className="grid-flow-col items-center">
-            <Link href="/" className="font-bold text-base text-blue-300">{brand}</Link>
+            <Link href="/" className="font-bold text-base text-emerald-300">{brand}</Link>
             <p>Copyright © {new Date().getFullYear()} - All right reserved.</p>
         </aside>
         <nav className="grid-flow-col gap-4 md:place-self-center md:justify-self-end">

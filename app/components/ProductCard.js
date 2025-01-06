@@ -5,14 +5,14 @@ export default function ProductCard({
   documentId,
   imageUrl,
   name,
-  description,
+  descr,
   discountedPrice,
   originalPrice,
 }) {
   return (
     <div className="card bg-base-100 shadow-2xl">
       <figure className="h-60 overflow-hidden mb-3">
-        <Link href={`/products/${documentId}`} passHref target="_blank">
+        <Link href={`/products/${documentId}`} passHref>
           <img
             src={imageUrl}
             alt={name || "Product"}
@@ -22,7 +22,7 @@ export default function ProductCard({
       </figure>
       <div className="card-body">
         <h2 className="card-title text-xl font-semibold">{name}</h2>
-        {/* <p className="text-gray-700 text-sm mb-2">{description}</p> */}
+        <p className="text-gray-700 text-sm mb-2">{descr}</p>
         <div className="flex justify-between items-center">
           <div>
             <span className="text-2xl font-bold text-primary mr-3">

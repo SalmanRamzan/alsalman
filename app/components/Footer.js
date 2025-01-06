@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function Footer({brand, logo}) {
   return (
-    <footer className="footer bg-base-100 text-base-content p-8 lg:px-32 border-t-2 border-base-200 justify-evenly">
+    <footer className="footer bg-base-100 text-base-content p-8 lg:px-32 border-t-2 border-base-200 justify-evenly py-12">
       <aside>
         {logo ? (
             <Link href="/"><img src={logo} alt={brand} className="lg:h-16 h-12 lg:w-28 w-24" /></Link>
