@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
-import Link from "next/link";
 
 export default function Products() {
   const [products, setProducts] = useState([]);
@@ -12,7 +11,7 @@ export default function Products() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch("https://strapi-ecommerce-oi2p.onrender.com/api/products?populate=photos");
+        const response = await fetch("https://strapi-ecommerce-zguy.onrender.com/api/products?populate=photos");
         if (!response.ok) {
           throw new Error("Failed to fetch products");
         }
@@ -28,18 +27,39 @@ export default function Products() {
     fetchProducts();
   }, []);
 
-  if (loading) return <p>Loading products...</p>;
-  if (error) return <p>Error: {error}</p>;
-
   const getImageUrl = (photos) => photos[3]?.url || ""; // Ensure correct access to Cloudinary URL
+
+  if (loading) {
+    return (
+      <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4 py-24">
+        {/* Skeletons for loading products */}
+        {Array(8)
+          .fill(null)
+          .map((_, index) => (
+            <div key={index} className="h-64 w-full bg-gray-200 rounded-lg animate-pulse"></div>
+          ))}
+      </div>
+    );
+  }
+
+  if (error) return <p>Error: {error}</p>;
 
   return (
     <>
-      <h1 className="lg:text-6xl text-3xl text-center my-6 pb-12 mx-auto w-3/5 border-b-2 border-primary py-12">New Arrival</h1>
+      <h1 className="lg:text-6xl text-3xl text-center my-6 pb-12 mx-auto w-3/5 border-b-2 border-primary py-12">
+        New Arrival
+      </h1>
       <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4 py-24">
         {products.map((product) => (
-          <ProductCard key={product.id} documentId={product.documentId} imageUrl={getImageUrl(product.photos)} name={product.name}
-            description={product.descr} discountedPrice={product.dprice} originalPrice={product.price} />
+          <ProductCard
+            key={product.id}
+            documentId={product.documentId}
+            imageUrl={getImageUrl(product.photos)}
+            name={product.name}
+            description={product.descr}
+            discountedPrice={product.dprice}
+            originalPrice={product.price}
+          />
         ))}
       </div>
     </>

@@ -1,17 +1,36 @@
 import React from "react";
 import Link from "next/link";
+import { useCart } from "../context/CartContext";
 
-export default function ProductCard({
-  documentId,
-  imageUrl,
-  name,
-  descr,
-  discountedPrice,
-  originalPrice,
-}) {
+export default function ProductCard({ documentId, imageUrl, name, descr, discountedPrice, originalPrice }) {
+  const { addToCart } = useCart();
+
+  // Create a product object using props
+  const product = {
+    id: documentId,
+    imageUrl,
+    name,
+    description: descr,
+    price: discountedPrice,
+    originalPrice,
+  };
+
+  const handleAddToCart = () => {
+    addToCart(product, 1); // Add one quantity of the product
+  };
+
+  // Calculate discount percentage
+  const discountPercentage = Math.round(((originalPrice - discountedPrice) / originalPrice) * 100);
+
   return (
-    <div className="card bg-base-100 shadow-2xl">
-      <figure className="h-60 overflow-hidden mb-3">
+    <div className="card bg-base-100 shadow-2xl relative">
+      {/* Discount badge */}
+      {discountPercentage > 0 && (
+        <div className="badge badge-accent absolute p-3 top-3 right-3 z-10 font-semibold">
+          {discountPercentage}% OFF
+        </div>
+      )}
+      <figure className="h-60 overflow-hidden mb-2">
         <Link href={`/products/${documentId}`} passHref>
           <img
             src={imageUrl}
@@ -21,18 +40,21 @@ export default function ProductCard({
         </Link>
       </figure>
       <div className="card-body">
-        <h2 className="card-title text-xl font-semibold">{name}</h2>
+        <h2 className="card-title font-semibold">{name}</h2>
         <p className="text-gray-700 text-sm mb-2">{descr}</p>
         <div className="flex justify-between items-center">
           <div>
-            <span className="text-2xl font-bold text-primary mr-3">
+            <span className="lg:text-xl text-lg font-bold text-primary mr-3">
               Rs. {discountedPrice}
             </span>
-            <span className="text-xl font-semibold text-gray-500 line-through">
+            <span className="lg:text-xl text-lg font-semibold text-gray-500 line-through">
               {originalPrice}
             </span>
           </div>
-          <button className="btn btn-ghost btn-circle bg-base-200 text-primary">
+          <button
+            className="btn btn-ghost btn-circle bg-base-200 text-primary"
+            onClick={handleAddToCart}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="lg:size-8 size-6"

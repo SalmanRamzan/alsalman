@@ -12,7 +12,7 @@ export default function Collections() {
   useEffect(() => {
     const fetchCollections = async () => {
       try {
-        const response = await fetch("https://strapi-ecommerce-oi2p.onrender.com/api/collections?populate=img");
+        const response = await fetch("https://strapi-ecommerce-zguy.onrender.com/api/collections?populate=img");
         if (!response.ok) {
           throw new Error("Failed to fetch collections");
         }
@@ -28,18 +28,76 @@ export default function Collections() {
     fetchCollections();
   }, []);
 
-  if (loading) return <p>Loading collections...</p>;
+  if (loading) {
+    return (
+      <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 p-4 py-24">
+        {/* Skeletons for the loading state */}
+        <div className="grid gap-4">
+          <div className="h-48 w-full bg-gray-200 rounded-lg animate-pulse"></div>
+          <div className="grid lg:grid-cols-2 gap-4">
+            <div className="h-48 bg-gray-200 rounded-lg animate-pulse"></div>
+            <div className="h-48 bg-gray-200 rounded-lg animate-pulse"></div>
+          </div>
+        </div>
+        <div className="grid gap-4">
+          <div className="h-48 bg-gray-200 rounded-lg animate-pulse"></div>
+          <div className="h-48 bg-gray-200 rounded-lg animate-pulse"></div>
+        </div>
+      </div>
+    );
+  }
+
   if (error) return <p>Error: {error}</p>;
 
-  //const getImageUrl = (photos) => photos[3]?.url || "";
   return (
     <>
-      <h1 className="lg:text-6xl text-3xl text-center my-6 pb-12 mx-auto w-3/5 border-b-2 border-primary py-12">Our Collections</h1>
-      <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 p-4 py-24">
-        {collections.map((collection) => (
-          <CollectionCard key={collection.id} documentId={collection.documentId} imageUrl={collection.img.url} name={collection.name}
-            description={collection.descr} />
-        ))}
+      <h1 className="lg:text-6xl text-3xl text-center my-6 pb-12 mx-auto w-3/5 border-b-2 border-primary py-12">
+        Our Collections
+      </h1>
+      <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 p-4 py-24">
+        {/* Column 1 */}
+        <div className="grid gap-4">
+          {/* First Item */}
+          <CollectionCard
+            key={collections[0].id}
+            documentId={collections[0].documentId}
+            imageUrl={collections[0].img.url}
+            name={collections[0].name}
+            descr={collections[0].descr}
+          />
+          {/* Second and Third Items */}
+          <div className="grid lg:grid-cols-2 gap-4">
+            {collections.slice(1, 3).map((collection) => (
+              <CollectionCard
+                key={collection.id}
+                documentId={collection.documentId}
+                imageUrl={collection.img.url}
+                name={collection.name}
+                descr={collection.descr}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Column 2 */}
+        <div className="grid gap-4">
+          {/* Fourth Item */}
+          <CollectionCard
+            key={collections[3].id}
+            documentId={collections[3].documentId}
+            imageUrl={collections[3].img.url}
+            name={collections[3].name}
+            descr={collections[3].descr}
+          />
+          {/* Fifth Item */}
+          <CollectionCard
+            key={collections[4].id}
+            documentId={collections[4].documentId}
+            imageUrl={collections[4].img.url}
+            name={collections[4].name}
+            descr={collections[4].descr}
+          />
+        </div>
       </div>
     </>
   );

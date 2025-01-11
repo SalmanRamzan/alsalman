@@ -2,6 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+import { useCart } from "@/app/context/CartContext";
+import Link from "next/link";
 
 export default function ProductDetail() {
   const { documentId } = useParams();
@@ -15,7 +17,7 @@ export default function ProductDetail() {
     const fetchProduct = async () => {
       try {
         const response = await fetch(
-          `https://strapi-ecommerce-oi2p.onrender.com/api/products/${documentId}?populate=*`
+          `https://strapi-ecommerce-zguy.onrender.com/api/products/${documentId}?populate=*`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch product details");
@@ -32,7 +34,36 @@ export default function ProductDetail() {
     fetchProduct();
   }, [documentId]);
 
-  if (loading) return <p>Loading product details...</p>;
+  if (loading) {
+    return (
+      <div className="container mx-auto py-24">
+        <div className="flex flex-col lg:flex-row gap-12 p-4">
+          {/* Skeleton for Image Gallery */}
+          <div className="lg:w-1/2">
+            <div className="rounded-2xl shadow-lg mb-4 skeleton skeleton-lg"></div>
+            <div className="flex gap-2 overflow-x-auto">
+              <div className="skeleton skeleton-sm w-20 h-20 rounded-lg"></div>
+              <div className="skeleton skeleton-sm w-20 h-20 rounded-lg"></div>
+              <div className="skeleton skeleton-sm w-20 h-20 rounded-lg"></div>
+            </div>
+          </div>
+
+          {/* Skeleton for Product Details */}
+          <div className="lg:w-1/2">
+            <div className="skeleton skeleton-lg mb-2"></div>
+            <div className="rating rating-sm mb-4">
+              <div className="skeleton skeleton-xs w-24 h-4"></div>
+            </div>
+            <div className="skeleton skeleton-md mb-8"></div>
+            <div className="skeleton skeleton-md w-24 h-8"></div>
+            <div className="skeleton skeleton-md w-48 h-8 mt-8"></div>
+            <div className="skeleton skeleton-md w-48 h-8 mt-4"></div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   if (error) return <p>Error: {error}</p>;
 
   const { name, descr, dprice, price, photos, collection } = product;
@@ -49,9 +80,27 @@ export default function ProductDetail() {
 
   const imageUrls = getImageUrls(photos);
 
+  const { addToCart } = useCart();
+
+  // Create a product object using props
+  const prod = {
+    id: documentId,
+    imageUrl: imageUrls[0],
+    name,
+    description: descr,
+    price: dprice
+  };
+
+  const handleAddToCart = () => {
+    addToCart(prod, 1); // Add one quantity of the product
+  };
+
+  const discountPercentage = Math.round(((price - dprice) / price) * 100);
+
   return (
     <div className="container mx-auto py-24">
       <div className="flex flex-col lg:flex-row gap-12 p-4">
+
         {/* Image Gallery */}
         <div className="lg:w-1/2">
           {/* Main Image */}
@@ -84,19 +133,28 @@ export default function ProductDetail() {
         {/* Product Details */}
         <div className="lg:w-1/2">
           <h1 className="lg:text-4xl text-3xl font-bold mb-2">{name}</h1>
-          {/* Strat Ratings */}
+          {/* Start Ratings */}
           <div className="rating rating-sm mb-4">
             <input type="radio" name="rating-2" className="mask mask-star-2 bg-yellow-600" />
             <input type="radio" name="rating-2" className="mask mask-star-2 bg-yellow-600" />
             <input type="radio" name="rating-2" className="mask mask-star-2 bg-yellow-600" />
             <input type="radio" name="rating-2" className="mask mask-star-2 bg-yellow-600" />
             <input type="radio" name="rating-2" className="mask mask-star-2 bg-yellow-300" />
-            <span className="ml-3 lg:text-base text-sm text-gray-400 font-smeibold">(157 Reviews)</span>
+            <span className="ml-3 lg:text-base text-sm text-gray-400 font-semibold">(157 Reviews)</span>
           </div>
           <p className="lg:text-lg text-base text-gray-700 mb-8">{descr}</p>
           <div className="mb-4">
+            
             <span className="lg:text-3xl text-2xl font-bold text-neutral mr-3">Rs. {dprice}</span>
             <span className="lg:text-3xl text-2xl font-semibold text-gray-400 line-through">Rs. {price}</span>
+            <span className="ml-8">
+              {/* Discount Badge */}
+              {discountPercentage > 0 && (
+                <div className="badge badge-accent font-semibold lg:p-4 p-2">
+                  {discountPercentage}% OFF
+                </div>
+              )}
+            </span>
           </div>
 
           {/* Quantity, Add to Cart, and Buy Now */}
@@ -119,17 +177,16 @@ export default function ProductDetail() {
                 </button>
               </div>
 
-              <button className="btn btn-md shadow-md btn-primary btn-outline lg:w-2/3 lg:mr-36 w-80">
+              <button className="btn btn-md shadow-md btn-primary btn-outline lg:w-2/3 lg:mr-36 w-80" onClick={handleAddToCart}>
                 Add to Cart
               </button>
             </div>
 
             {/* Buy Now (Full-width on mobile, same line on desktop) */}
-            <button className="btn btn-md shadow-md shadow-primary btn-primary text-white lg:w-1/3 w-full">
-              Buy Now
+            <button className="btn btn-md shadow-md shadow-primary btn-primary text-white lg:w-1/3 w-full" onClick={handleAddToCart}>
+              <Link href="/cart">Buy Now</Link>
             </button>
           </div>
-
 
           {/* Features */}
           <div className="mt-6">
@@ -149,8 +206,6 @@ export default function ProductDetail() {
                         strokeLinejoin="round"
                       />
                     </svg>
-
-
                   </span>
                   {feature}
                 </li>
@@ -190,8 +245,6 @@ export default function ProductDetail() {
               <div className="badge badge-neutral">{collection.name}</div>
             </button>
             )}
-
-
         </div>
       </div>
     </div>
