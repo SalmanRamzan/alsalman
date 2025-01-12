@@ -7,10 +7,13 @@ import { useCart } from "../context/CartContext";
 export default function CartPage() {
   const { cartItems, removeFromCart, updateQuantity } = useCart();
 
+  // Calculate Total Amount
+  const totalAmount = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+
   return (
     <div className="container mx-auto p-4 min-h-full py-36">
       {cartItems.length === 0 ? (
-        <p className="lg:text-4xl text-2xl text-center text-gray-600">Your cart is empty.</p>
+        <p className="lg:text-5xl text-3xl text-center text-gray-600">Your cart is empty.</p>
       ) : (
         <div className="space-y-4">
           <h1 className="lg:text-3xl text-xl mb-4">Your Cart</h1>
@@ -21,11 +24,11 @@ export default function CartPage() {
             >
               <div className="flex items-center space-x-3">
                 <Link href={`/products/${item.id}`}>
-                    <img
+                  <img
                     src={item.imageUrl}
                     alt={item.name}
-                    className="lg:size-20 size-12 object-cover rounded-lg border-2 border-info"
-                    />
+                    className="lg:w-20 w-12 object-cover rounded-lg border-2 border-primary"
+                  />
                 </Link>
                 <div>
                   <h2 className="lg:text-lg text-xs font-bold">{item.name}</h2>
@@ -41,7 +44,7 @@ export default function CartPage() {
                 >
                   -
                 </button>
-                <span className="lg:text-lg text-sm font-semibold">{item.quantity}</span>
+                <span className="btn btn-primary btn-sm lg:text-lg text-sm font-semibold">{item.quantity}</span>
                 <button
                   className="btn btn-outline lg:btn-sm btn-xs"
                   onClick={() => updateQuantity(item.id, item.quantity + 1)}
@@ -50,10 +53,10 @@ export default function CartPage() {
                 </button>
               </div>
               {/* Total Price */}
-              <p className="lg:text-lg text-sm font-bold text-primary">
+              <p className="lg:text-xl text-base font-bold text-primary">
                 Rs. {item.price * item.quantity}
               </p>
-              {/* Remove Button with Bucket Icon */}
+              {/* Remove Button */}
               <button
                 className="btn-error text-error lg:btn-md btn-xs"
                 onClick={() => removeFromCart(item.id)}
@@ -76,6 +79,17 @@ export default function CartPage() {
               </button>
             </div>
           ))}
+          {/* Total Amount and Checkout Button */}
+          <div className="flex flex-col lg:flex-row items-center lg:justify-end mt-4 border-t pt-4 space-y-4 lg:space-y-0 lg:space-x-4">
+            <h2 className="text-lg lg:text-2xl font-bold text-gray-800 lg:mr-24 mr-20">
+              <span className="text-primary text-4xl">Rs. {totalAmount}</span>
+            </h2>
+            <Link href="/checkout">
+              <button className="btn btn-primary w-full lg:w-auto text-white">
+                Proceed to Checkout
+              </button>
+            </Link>
+          </div>
         </div>
       )}
     </div>
