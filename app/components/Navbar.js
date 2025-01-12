@@ -48,7 +48,7 @@ function NavMid({ brand, logo }) {
     return (
       <div className="navbar-center">
         {logo ? (
-            <Link href="/"><img src={logo} alt={brand} className="lg:h-14 h-12 lg:w-28 w-24" /></Link>
+            <Link href="/"><img src={logo} alt={brand} className="lg:h-24 h-20 lg:w-28 w-24" /></Link>
         ) : (
           <Link href="/" className="lg:text-3xl text-xl font-semibold">{brand}</Link>
         )}

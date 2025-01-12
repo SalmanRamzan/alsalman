@@ -36,7 +36,7 @@ export default function ProductDetail() {
 
   if (loading) {
     return (
-      <div className="container mx-auto py-24">
+      <div className="container mx-auto py-40">
         <div className="flex flex-col lg:flex-row gap-12 p-4">
           {/* Skeleton for Image Gallery */}
           <div className="lg:w-1/2">
@@ -98,7 +98,7 @@ export default function ProductDetail() {
   const discountPercentage = Math.round(((price - dprice) / price) * 100);
 
   return (
-    <div className="container mx-auto py-24">
+    <div className="container mx-auto py-40">
       <div className="flex flex-col lg:flex-row gap-12 p-4">
 
         {/* Image Gallery */}

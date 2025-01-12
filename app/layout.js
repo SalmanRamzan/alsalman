@@ -21,7 +21,7 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  let logo = "/alsalman-logo-new.png";
+  let logo = "/Alsalman-fancy-logo.png";
   const brand = "AlSalman";
 
   return (
