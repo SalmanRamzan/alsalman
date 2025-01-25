@@ -97,7 +97,7 @@ function NavEnd() {
 
 export default function Navbar({brand, logo, color}) {
   return (
-    <div className={`navbar ${color} lg:px-20 px-2 border-b-2 border-blue-200 shadow-lg fixed z-50`}>
+    <div className={`navbar ${color} lg:px-20 px-2 border-b-2 border-blue-200 shadow-lg`}>
       <NavStart />
       <NavMid brand={brand} logo={logo}/>
       <NavEnd />

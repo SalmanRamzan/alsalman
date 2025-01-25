@@ -20,8 +20,8 @@ const Topbar = () => {
   }, [messages.length]);
 
   return (
-    <div className="bg-primary">
-      <div className="w-[94%] mx-auto text-white py-2 px-4 flex justify-between items-center text-xs lg:text-sm">
+    <div className="bg-primary text-white">
+      <div className="w-[94%] mx-aut py-2 px-4 flex justify-between items-center text-xs lg:text-sm">
         {/* Left Side: Social Media Icons (hidden on mobile) */}
         <div className="hidden sm:flex space-x-4">
           <Link href="https://facebook.com" target="_blank" className="hover:text-primary">
