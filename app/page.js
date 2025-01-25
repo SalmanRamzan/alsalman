@@ -12,8 +12,8 @@ export default function Home() {
         <Collections />
         <Services />
         <ProductList />
-        <FAQs />
         <Newsletter />
+        <FAQs />
     </div>
   );
 }

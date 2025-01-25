@@ -2,6 +2,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import Footer from "./components/Footer";
 import Footer1 from "./components/Footer1";
 import Navbar from "./components/Navbar";
+import Topbar from "./components/Topbar";
 import { CartProvider } from "./context/CartContext"; // Import the CartProvider
 import "./globals.css";
 
@@ -21,14 +22,15 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  let logo1 = "/alsalman-fancy-logo.png";
-  let logo2 = "/Alsalman-fancy-logo-DARK.png";
+  let logo1 = "/alsalman-simple-logo.png";
+  let logo2 = "/Alsalman-simple-logo-DARK.png";
   const brand = "AlSalman";
 
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <CartProvider>
+          <Topbar />
           <Navbar brand={brand} color="bg-base-100" logo={logo1} />
           {children}
           <Footer brand={brand} logo={logo2} />

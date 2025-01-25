@@ -46,9 +46,12 @@ export default function Products() {
 
   return (
     <>
-      <h1 className="lg:text-6xl text-3xl text-center my-6 pb-12 mx-auto w-3/5 border-b-2 border-primary py-12">
-        New Arrival
+      <h1 className="lg:text-5xl text-3xl font-semibold text-center mx-auto w-3/5 pt-16 lg:pt-28 pb-3 capitalize">
+        our bestsellers
       </h1>
+      <p className="text-xs lg:text-base text-center text-gray-500 italic pb-8 lg:pb-16">
+        Best selling products of our store.
+      </p>
       <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4 py-24">
         {products.map((product) => (
           <ProductCard

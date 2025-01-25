@@ -32,18 +32,21 @@ const servicesData = [
 const Services = () => {
   return (
     <>
-      <h1 className="lg:text-6xl text-3xl text-center my-6 pb-12 mx-auto w-3/5 border-b-2 border-primary py-12">
-        What We Offer
+      <h1 className="lg:text-5xl text-3xl font-semibold text-center mx-auto w-3/5 pt-16 lg:pt-28 pb-3 capitalize">
+        what we offer
       </h1>
+      <p className="text-xs lg:text-base text-center text-gray-500 italic pb-8 lg:pb-16">
+        We are giving best services nationwide.
+      </p>
       <div className="py-24 px-4">
         <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {servicesData.map((service) => (
             <div
               key={service.id}
-              className="bg-base-100 shadow-lg rounded-lg p-6 text-center hover:shadow-2xl transition-shadow duration-300"
+              className="bg-blue-100 shadow-xl rounded-xl p-6 text-center hover:shadow-2xl transition-shadow duration-300"
             >
-              <div className="lg:text-6xl text-4xl mb-8">{service.icon}</div>
-              <h3 className="lg:text-2xl text-xl font-semibold mb-3">{service.title}</h3>
+              <div className="lg:text-6xl text-4xl mb-12">{service.icon}</div>
+              <h3 className="lg:text-2xl text-xl font-semibold mb-4">{service.title}</h3>
               <p className="text-gray-600 text-left">{service.description}</p>
             </div>
           ))}

@@ -5,7 +5,7 @@ export default function Footer({brand, logo}) {
     <footer className="footer bg-neutral text-neutral-content p-8 lg:px-32 border-t-2 border-base-200 justify-evenly py-8">
       <aside>
         {logo ? (
-            <Link href="/"><img src={logo} alt={brand} className="lg:h-32 h-28 lg:w-32 w-28" /></Link>
+            <Link href="/"><img src={logo} alt={brand} className="w-36 lg:w-40 h-14 lg:h-16" /></Link>
         ) : (
           <Link href="/" className="lg:text-3xl text-xl font-semibold">{brand}</Link>
         )}

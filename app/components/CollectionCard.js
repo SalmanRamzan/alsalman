@@ -15,7 +15,7 @@ export default function CollectionCard({ documentId, imageUrl, name, descr }) {
       </figure>
       <div className="card-body">
         <h2 className="card-title text-2xl font-semibold">{name}</h2>
-        <p className="text-gray-500 text-base mb-2 line-clamp-2">{descr}</p>
+        <p className="text-gray-500 text-base mb-2 line-clamp-1">{descr}</p>
       </div>
     </div>
   );
